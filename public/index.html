@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="ftpgui">
+  <head>
+    <title>FTP Coolworking</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="javascripts/angular.js"></script>
+    <script src="javascripts/all.min.js"></script>
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-controller="FileListCtrl" class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1>FTP Coolworking</h1>
+        </div>
+        <div class="panel-body">
+          <row>
+            <label>Filtre</label>
+            <div class="input-group">
+              <input placeholder="Filtre" ng-model="filtre" type="text" class="form-control"><span class="input-group-btn">
+                <button ngClick="" class="btn btn-default">clear</button></span>
+            </div>
+          </row>
+          <table class="table table-striped">
+            <thead>
+              <th>Fichier</th>
+              <th>Date de Création</th>
+              <th>Télécharger</th>
+              <th>Supprimer</th>
+            </thead>
+            <tr ng-repeat="file in files| filter: filtre">
+              <td>{{file.name}}</td>
+              <td>{{file.date}}</td>
+              <td><a href="ftp://undefined/{{file.name}}" class="btn btn-success">Télécharger</a></td>
+              <td>
+                <form ng-submit="delete()" ng-controller="ActionCtrl">
+                  <input type="submit" value="Supprimer" class="btn btn-danger">
+                </form>
+              </td>
+            </tr>
+          </table>
+          <row>
+            <hr>
+            <p>{{files.length}} listé(s)</p>
+          </row>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

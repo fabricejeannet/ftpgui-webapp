@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .container(ng-controller="FileListCtrl")
+    .panel.panel-default
+      .panel-heading
+        h1 FTP Coolworking
+      .panel-body
+        row
+          label Filtre
+          .input-group
+            input.form-control(placeholder="Filtre" ng-model="filtre" type="text")
+            span.input-group-btn
+              button.btn.btn-default(ngClick="") clear
+        table.table.table-striped
+          thead
+            th Fichier
+            th Date de Création
+            th Télécharger
+            th Supprimer
+          tr(ng-repeat="file in files| filter: filtre")
+            td {{file.name}}
+            td {{file.date}}
+            td
+              a(href="ftp://#{url}/{{file.name}}").btn.btn-success Télécharger
+
+            td
+              form(ng-submit="delete()" ng-controller="ActionCtrl")
+                input.btn.btn-danger(type="submit" value="Supprimer")
+        row
+          hr
+          p {{files.length}} listé(s)
